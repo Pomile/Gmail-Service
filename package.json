@@ -12,14 +12,16 @@
     ],
     "exclude": [
       "server/spec/",
-      "dist/"
+      "dist/",
+      "server/src/helpers/tokenStore.js"
     ]
   },
   "scripts": {
     "build": "rimraf dist && mkdir dist && npm run build-with-babel",
     "build-with-babel": "babel ./server -d dist",
     "start": "node ./dist/bin/www",
-    "mocha:test": "mocha --require @babel/register ./server/spec/tester.js --exit",
+    "start:dev": "nodemon -w ./server/src --exec babel-node ./server/bin/www",
+    "mocha:test": "mocha --require @babel/register ./server/spec/tester.js --timeout 6000 --exit",
     "test": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text npm run mocha:test",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
@@ -34,15 +36,25 @@
   },
   "homepage": "https://github.com/Pomile/NodeJs-Express-setup#readme",
   "dependencies": {
-    "@babel/polyfill": "^7.4.4",
+    "axios": "^0.19.0",
+    "base-64": "^0.1.0",
     "body-parser": "^1.19.0",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
-    "morgan": "^1.9.1"
+    "googleapis": "^42.0.0",
+    "js-base64": "^2.5.1",
+    "morgan": "^1.9.1",
+    "nodemailer": "^6.3.0",
+    "open": "^6.4.0",
+    "querystring": "^0.2.0",
+    "sendmail": "^1.6.1",
+    "xoauth2": "^1.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.5.5",
     "@babel/register": "^7.5.5",
     "babel-plugin-istanbul": "^5.2.0",
@@ -53,6 +65,7 @@
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.2",
     "mocha": "^6.2.0",
+    "nodemon": "^1.19.1",
     "nyc": "^14.1.1",
     "rimraf": "^2.6.3",
     "supertest": "^4.0.2"

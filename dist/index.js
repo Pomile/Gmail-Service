@@ -11,11 +11,19 @@ var _bodyParser = _interopRequireDefault(require("body-parser"));
 
 var _morgan = _interopRequireDefault(require("morgan"));
 
+var _dotenv = _interopRequireDefault(require("dotenv"));
+
+var _gamesConfiguration = require("googleapis/build/src/apis/gamesConfiguration");
+
 var _index = _interopRequireDefault(require("./src/route/index"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var app = (0, _express["default"])();
+
+_dotenv["default"].config(); // console.log('access token', process.env.GOOGLE_ACCESS_TOKEN);
+
+
 app.use((0, _morgan["default"])('short'));
 app.use(_bodyParser["default"].urlencoded({
   extended: false,

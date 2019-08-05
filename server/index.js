@@ -1,9 +1,14 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
+import env from 'dotenv';
+import { gamesConfiguration } from 'googleapis/build/src/apis/gamesConfiguration';
 import routes from './src/route/index';
 
 const app = express();
+
+env.config();
+// console.log('access token', process.env.GOOGLE_ACCESS_TOKEN);
 app.use(morgan('short'));
 app.use(bodyParser.urlencoded({ extended: false, type: '*/x-www-form-urlencoded' }));
 app.use(bodyParser.json({ type: 'application/json' }));
